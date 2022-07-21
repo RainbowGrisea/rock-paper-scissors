@@ -3,39 +3,41 @@
 // the two choices are compared
 // rock beats scissors, scissors beats paper, paper beats rock
 
-// the computer makes his choice
+// Return the computers choice
 function getComputerChoice() {
-    let compChoice;
-    compChoice = Math.floor(Math.random() * 3 + 1);
-    console.log(compChoice);
-    switch (compChoice) {
+    Math.floor(Math.random() * 3 + 1);
+    switch (Math.floor(Math.random() * 3 + 1)) {
         case 1:
-            compChoice = 'Rock'
+            return 'Rock'
             break;
         case 2:
-            compChoice = 'Paper'
+            return 'Paper'
             break;
         default:
-            compChoice = 'Scissors'
+            return 'Scissors'
             break;
     }
-    console.log(compChoice);
 }
 
-// make the user's choice case insensitive
+// Play a round of rock-paper-scissors
+function playARound() {
+    compChoice = getComputerChoice();
+    let usersChoice;
+    let incorrectInput = true;
+    // Exclude incorrect inputs
+    while (incorrectInput === true) {
+        usersChoice = prompt('Rock, paper or scissors?');
+        // Make the user's choice case insensitive
+        let firstLetter = usersChoice.slice(0, 1).toUpperCase();
+        let restLetters = usersChoice.slice(1).toLowerCase();
+        usersChoice = firstLetter + restLetters;
+        if (usersChoice === 'Rock' || usersChoice === 'Paper' || usersChoice === 'Scissors') {
+            incorrectInput = false;
+        } else {
+            console.log('Incorrect input! \nPlease make a proper choice!');
+        };
+    };
 
-let firstLetter = usersChoice.slice(0, 1).toUpperCase();
-console.log(firstLetter);
-let restLetters = usersChoice.slice(1).toLowerCase();
-console.log(restLetters);
-usersChoice = firstLetter + restLetters;
-console.log(usersChoice);
-
-// compare choices
-function playARound(usersChoice, getComputerChoice) {
-    if (usersChoice === compChoice) {
-        console.log('It\'s a tie!');
-    }
     switch (true) {
         case usersChoice === compChoice:
             return ('It\'s a tie!');
@@ -60,8 +62,30 @@ function playARound(usersChoice, getComputerChoice) {
             break;
     }
 }
-playARound(usersChoice, compChoice);
 
-function play() {
+// Play a game of 5 rock-paper-scissors
+function game() {
+    let playerPoints = 0;
+    let computerPoints = 0;
+    const regex = /You win!/i;
 
+    // Run until 5 games are won (ties don't count) 
+    for (let i = 0; i < 5; i++) {
+        let result = playARound();
+        console.log(result);
+        switch (true) {
+            case result === 'It\'s a tie!':
+                i--;
+                break;
+            case regex.test(result):
+                playerPoints++;
+                break;
+            default:
+                computerPoints++;
+        }
+    }
+    // Who wins?
+    playerPoints > computerPoints ?
+        console.log('You WIN! \nYour points: ' + playerPoints + '\nComputer points: ' + computerPoints) :
+        // console.log('You LOSE! \nYour points: ' + playerPoints + '\nComputer points: ' + computerPoints);
 }
