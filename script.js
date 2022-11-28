@@ -71,10 +71,10 @@ function playARound(usersChoice) {
     // Stop the game when a player reaches 5 points
     switch (true) {
         case playersScore === 5:
-            result.textContent = 'You WIN the game!!!';
+            result.textContent = 'You WIN!';
             break;
         case computersScore === 5:
-            result.textContent = 'Computer WINS the game!!!';
+            result.textContent = 'Computer WINS!';
             break;
     };
 
